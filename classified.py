@@ -1,6 +1,6 @@
 #game met gebruik van classes
-from ballclass import ball
-from paddleclass import paddle
+from ballclass import Ball
+from paddleclass import Paddle
 
 #import sys, time, math, os, random
 from pyglet.gl import *
@@ -12,67 +12,64 @@ window.push_handlers(keyboard)
 
 @window.event
 def on_draw():
-    global paddleR
-    global paddleL
-    global ball
     glClearColor(0, 0.2, 0.2, 0)
     glClear(GL_COLOR_BUFFER_BIT)
-    paddleR.draw()
-    paddleL.draw()
-    ball.draw()
+    [draw_object[1].draw() for draw_object in object_list]
 
 def update(timePassed):
-    if(up==1):
-        paddleR.moveUp(window)
-    if(down==1):
-        paddleR.moveDown(window)
-    if(sKey==1):
-        paddleL.moveDown(window)
-    if(wKey==1):
-        paddleL.moveUp(window)
+    if(up==True):
+        paddle_list[0].moveUp(window)
+    if(down==True):
+        paddle_list[0].moveDown(window)
+    if(sKey==True):
+        paddle_list[1].moveDown(window)
+    if(wKey==True):
+        paddle_list[1].moveUp(window)
 
-    ball.update(window, paddleR, paddleL)
+    object_list[0][1].update(window, paddle_list[0], paddle_list[1])
 
+object_list = [("ball", Ball(100,200,50,50,4)),
+               ("paddleR", Paddle(window.width-10,5,130,10)),
+               ("paddleL", Paddle(0,5,130,10))]
+
+paddle_list = [object_list[1][1], object_list[2][1]]
     
-ball=ball(100,200,50,50,4)
-paddleR=paddle(window.width-10,5,130,10)
-paddleL=paddle(0,5,130,10)
 
 
-up=0
-down = 0
-wKey = 0
-sKey = 0
+
+up = False
+down = False
+wKey = False
+sKey = False
 @window.event
 def on_key_press(symbol, modifiers):
-    global paddleR
     global up
     global down
     global wKey
     global sKey
     if (symbol == key.UP):
-        up=1
-    if(symbol==key.DOWN):
-        down=1
-    if(symbol==key.W):
-        wKey=1
-    if(symbol==key.S):
-        sKey=1
+        up = True
+    if(symbol == key.DOWN):
+        down = True
+    if(symbol == key.W):
+        wKey = True
+    if(symbol == key.S):
+        sKey = True
 
 @window.event
 def on_key_release(symbol, modifiers):
     if(symbol==key.UP):
         global up
-        up = 0
+        up = False
     if(symbol==key.DOWN):
         global down
-        down=0
+        down = False
     if(symbol==key.W):
         global wKey
-        wKey=0
+        wKey = False
     if(symbol==key.S):
         global sKey
-        sKey=0
+        sKey = False
 
 pyglet.clock.schedule_interval(update, 0.005)
 pyglet.app.run()

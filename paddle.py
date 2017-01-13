@@ -16,11 +16,7 @@ class paddle:
         self.left=left
 
     def draw(self):
-        pyglet.graphics.draw(4, pyglet.gl.GL_QUADS, ('v2f', 
-            [self.left, (self.position-(self.height/2)),
-             self.left+self.width, (self.position+(self.height/2)),
-             self.left+self.width, (self.position-(self.height/2)),
-             self.left, (self.position+(self.height/2))]))
+        pyglet.graphics.draw(4, pyglet.gl.GL_POINTS, ('v2i', (10, 100, 10, 300, 210, 300, 210, 100)))
 
     def moveUp(self):
         if((self.position+(self.height/2))<window.height):
