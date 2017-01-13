@@ -1,3 +1,4 @@
+#game met gebruik van classes
 from ballclass import ball
 from paddleclass import paddle
 

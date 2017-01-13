@@ -1,3 +1,4 @@
+#voorbeeld van gebruik met de kale ball class
 import sys, time, math, os, random
 from pyglet.gl import *
 

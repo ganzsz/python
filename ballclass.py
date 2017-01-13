@@ -1,3 +1,4 @@
+#class voor bal om te importeren
 from pyglet.gl import *
 from pyglet.window import *
 class ball:

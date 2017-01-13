@@ -1,3 +1,4 @@
+#paddle met een class voorbeeld
 import sys, time, math, os, random
 from pyglet.gl import *
 from pyglet.window import *

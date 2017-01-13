@@ -1,3 +1,4 @@
+#voorbeeld met classes en alles in een bestand
 import sys, time, math, os, random
 from pyglet.gl import *
 from pyglet.window import *

@@ -1,3 +1,4 @@
+#Kale class van de paddle om te importeren
 from pyglet.gl import *
 from pyglet.window import *
 class paddle:
