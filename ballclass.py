@@ -5,45 +5,44 @@ from gameobjectclass import GameObject
 from pyglet.gl import *
 from pyglet.window import *
 
-class Ball:
-    def __init__(self, x, y, width, height, speed):
-        self.x=x
-        self.y=y
-        self.width = width
-        self.height = height
-        self.speed = speed
-        self.dy = speed
-        self.dx = speed
+class Ball(GameObject):
+    speed = 4
+    def __init__(self, centerX, centerY, height, width):
+        super().__init__(centerX, centerY, height, width)
 
     def draw(self):
         pyglet.graphics.draw(4, pyglet.gl.GL_QUADS, ('v2f', 
-            [self.x, self.y, self.x-self.width, self.y, self.x-self.width, self.y-self.height, self.x, self.y-self.height]))
-
+            ((self.centerX - (self.width/2)), (self.centerY - (self.height/2)),
+             (self.centerX - (self.width/2)), (self.centerY + (self.height/2)),
+             (self.centerX + (self.width/2)), (self.centerY + (self.height/2)),
+             (self.centerX + (self.width/2)), (self.centerY - (self.height/2)))))
 
     def update(self, window, paddleRight, paddleLeft):
-        if self.x>=paddleRight.left:
-            if (paddleRight.position-(paddleRight.height/2) <= self.y <= (paddleRight.position+(paddleRight.height/2)) or (paddleRight.position-(paddleRight.height/2) <= self.y-self.height <= paddleRight.position+(paddleRight.height/2))):
+        if(self.x >= paddleRight.centerX+paddleRight.width/2):
+            if((paddleRight.centerY - paddleRight.height/2 <= self.centerY + self.height/2 <= paddleRight.centerY + paddleRight.height/2)
+            or (paddleRight.centerY - paddleRight.height/2 <= self.centerY - self.height/2 <= paddleRight.centerY + paddleRight.height/2)):
                 self.speed += 0.5
                 Paddle.speed += 0.4
                 self.dx=-self.speed
                 print('paddle right')
-        elif self.x-self.width<=paddleLeft.left+paddleLeft.width:
-            if((self.y<paddleLeft.position+(paddleLeft.height/2) and self.y>paddleLeft.position-(paddleLeft.height/2)) or (self.y<paddleLeft.position+self.height+(paddleLeft.height/2) and self.y>paddleLeft.position+self.height-(paddleLeft.height/2))):
+        elif(self.centerX - self.width/2 >= paddleLeft.centerX + paddleLeft.width/2):
+            if((paddleLeft.centerY - paddleLeft.height/2 <= self.centerY + self.height/2 <= paddleLeft.centerY + paddleLeft.height/2)
+            or (paddleleft.centerY - paddleLeft.height/2 <= self.centerY - self.height/2 <= paddleLeft.centerY + paddleLeft.height/2)):
                 self.speed += 0.5
                 Paddle.speed += 0.4
                 self.dx=self.speed
                 print('paddle left')
-        if(self.x>=window.width):
+        if(self.x + self.width/2 >= window.width):
             self.dx=-self.speed
             print('right')
-        elif(self.x<=self.width):
+        elif(self.x - self.width/2 <= 0):
             self.dx=self.speed
             print('left')
 
-        if(self.y>=window.height):
+        if(self.y + self.height/2 >= window.height):
             self.dy=-self.speed
             print('top')
-        elif(self.y<=self.height):
+        elif(self.y - self.height/2 <= 0):
             self.dy=self.speed
             print('bot')
 
