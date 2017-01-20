@@ -18,7 +18,7 @@ class Ball(GameObject):
              (self.centerX + (self.width/2)), (self.centerY - (self.height/2)))))
 
     def update(self, window, paddleRight, paddleLeft):
-        if(self.x >= paddleRight.centerX+paddleRight.width/2):
+        if(self.centerX + (self.width/2) >= paddleRight.centerX + (paddleRight.width/2)):
             if((paddleRight.centerY - paddleRight.height/2 <= self.centerY + self.height/2 <= paddleRight.centerY + paddleRight.height/2)
             or (paddleRight.centerY - paddleRight.height/2 <= self.centerY - self.height/2 <= paddleRight.centerY + paddleRight.height/2)):
                 self.speed += 0.5
@@ -32,19 +32,19 @@ class Ball(GameObject):
                 Paddle.speed += 0.4
                 self.dx=self.speed
                 print('paddle left')
-        if(self.x + self.width/2 >= window.width):
+        if(self.centerX + self.width/2 >= window.width):
             self.dx=-self.speed
             print('right')
-        elif(self.x - self.width/2 <= 0):
+        elif(self.centerX - self.width/2 <= 0):
             self.dx=self.speed
             print('left')
 
-        if(self.y + self.height/2 >= window.height):
+        if(self.centerY + self.height/2 >= window.height):
             self.dy=-self.speed
             print('top')
-        elif(self.y - self.height/2 <= 0):
+        elif(self.centerY - self.height/2 <= 0):
             self.dy=self.speed
             print('bot')
 
-        self.y+=self.dy
-        self.x+=self.dx
+        self.centerY+=self.dy
+        self.centerX+=self.dx

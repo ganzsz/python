@@ -31,7 +31,7 @@ def update(timePassed):
 
     object_list[0][1].update(window, paddle_list[0], paddle_list[1])
 
-object_list = [("ball", Ball((window.width/2), (window.height/2), 40, 40, 4)),
+object_list = [("ball", Ball((window.width/2), (window.height/2), 40, 40)),
                ("paddleR", Paddle(window.width-5, (window.height/2), 120, 10)),
                ("paddleL", Paddle(5, (window.height/2), 120, 10))]
 
