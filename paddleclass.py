@@ -4,7 +4,7 @@ from pyglet.window import *
 from gameobjectclass import GameObject
 
 class Paddle(GameObject):
-    speed = 100
+    speed = 4
 
     def __init__(self, centerX, centerY, height, width):
         super().__init__(centerX, centerY, height, width)
