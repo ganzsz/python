@@ -1,29 +1,32 @@
 #Kale class van de paddle om te importeren
 from pyglet.gl import *
 from pyglet.window import *
-class Paddle:
+from gameobjectclass import GameObject
+
+class Paddle(GameObject):
     speed = 4
 
-    def __init__(self, left, speed, height, width):
-        self.position=150
-        self.height = height
-        self.width = width
-        self.left=left
+    def __init__(self, centerX, centerY, height, width):
+        super().__init__(centerX, centerY, height, width)
 
     def draw(self):
         pyglet.graphics.draw(4, pyglet.gl.GL_QUADS, ('v2f', 
-            (self.left, (self.position-(self.height/2)),
-             self.left, (self.position+(self.height/2)),
-             self.left+self.width, (self.position+(self.height/2)),
-             self.left+self.width, (self.position-self.height/2))))
+            ((self.centerX - (self.width/2)), (self.centerY - (self.width/2)),
+             (self.centerX - (self.width/2)), (self.centerY + (self.width/2)),
+             (self.centerX + (self.width/2)), (self.centerY + (self.width/2)),
+             (self.centerX + (self.width/2)), (self.centerY - (self.width/2)))))
 
     def moveUp(self, window):
-        if((self.position+(self.height/2))<window.height):
-            self.position+=self.speed
+        if((self.centerY + (self.height/2)) <= (window.height - self.speed)):
+            self.centerY += self.speed
+        elif((window.height - self.speed) < (self.centerY + (self.height/2)) < window.height):
+            self.centerY = window.height - (self.height/2)
 
     def moveDown(self, window):
-        if(self.position>(self.height/2)):
-            self.position-=self.speed
+        if(self.centerY - (self.height/2) >= self.speed):
+            self.centerY -= self.speed
+        elif(0 < (self.ceterY - (self.height/2)) < self.speed):
+            self.centerY = self.height/2
 
     def update(self):
         pass

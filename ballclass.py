@@ -1,5 +1,6 @@
 #class voor bal om te importeren
 from paddleclass import Paddle
+from gameobjectclass import GameObject
 
 from pyglet.gl import *
 from pyglet.window import *
@@ -22,13 +23,13 @@ class Ball:
     def update(self, window, paddleRight, paddleLeft):
         if self.x>=paddleRight.left:
             if (paddleRight.position-(paddleRight.height/2) <= self.y <= (paddleRight.position+(paddleRight.height/2)) or (paddleRight.position-(paddleRight.height/2) <= self.y-self.height <= paddleRight.position+(paddleRight.height/2))):
-                self.speed += 2
+                self.speed += 0.5
                 Paddle.speed += 0.4
                 self.dx=-self.speed
                 print('paddle right')
         elif self.x-self.width<=paddleLeft.left+paddleLeft.width:
             if((self.y<paddleLeft.position+(paddleLeft.height/2) and self.y>paddleLeft.position-(paddleLeft.height/2)) or (self.y<paddleLeft.position+self.height+(paddleLeft.height/2) and self.y>paddleLeft.position+self.height-(paddleLeft.height/2))):
-                self.speed += 2
+                self.speed += 0.5
                 Paddle.speed += 0.4
                 self.dx=self.speed
                 print('paddle left')

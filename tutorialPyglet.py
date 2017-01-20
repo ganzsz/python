@@ -19,7 +19,7 @@ def on_draw():
 	levelLabel.draw()
 	pyglet.graphics.draw(4, pyglet.gl.GL_QUADS, 
 			('v2i', (10, 100, 10, 300, 210, 300, 210, 100)), 
-			('c3B', (0, 255, 0, 0, 255, 0, 0, 255, 0, 0, 255, 0)))
+			('c3B', ((0, 255, 0), (0, 255, 0), (0, 255, 0), (0, 255, 0))))
 
 @window.event
 def on_key_press(symbol, modifiers):
