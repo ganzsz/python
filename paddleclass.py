@@ -3,8 +3,8 @@ from abstractobjects import RectangleObject
 class Paddle(RectangleObject):
     speed = 0.15
 
-    def __init__(self, centerX, centerY, height, width):
-        super().__init__(centerX, centerY, height, width)
+    def __init__(self, centerX, centerY, height, width, color):
+        super().__init__(centerX, centerY, height, width, color)
 
     def moveUp(self, window, deltaTime):
         if((self.centerY + (self.height/2)) <= (window.height - self.speed)):

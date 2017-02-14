@@ -17,6 +17,10 @@ def on_draw():
     glClearColor(0, 0.2, 0.2, 0)
     glClear(GL_COLOR_BUFFER_BIT)
     [draw_object[1].draw() for draw_object in object_list]
+    objectCounter = len(object_list)
+    while objectCounter > 0:
+        objectCounter -= 1
+        object_list[objectCounter][1].draw()
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
@@ -41,10 +45,10 @@ def update(timePassed):
 
     object_list[0][1].update(window, deltaTime, paddle_list[0], paddle_list[1])
 
-object_list = [("ball", Ball((window.width/2), (window.height/2), 40, 40)),
-               ("paddleR", Paddle(window.width-5, (window.height/2), 120, 10)),
-               ("paddleL", Paddle(5, (window.height/2), 120, 10)),
-               ("middleLine", MiddleLine(window))]
+object_list = [("ball", Ball((window.width/2), (window.height/2), 40, 40, (0, 255, 0))),
+               ("paddleR", Paddle(window.width-5, (window.height/2), 120, 10, (255, 0, 0))),
+               ("paddleL", Paddle(5, (window.height/2), 120, 10, (255, 0, 0))),
+               ("middleLine", MiddleLine(window, (0, 0, 255)))]
 
 paddle_list = [object_list[1][1], object_list[2][1]]
     

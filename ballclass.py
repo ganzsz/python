@@ -7,8 +7,8 @@ class Ball(RectangleObject):
     ballIncrement = 0.025
     paddleIncrement = 0.02
 
-    def __init__(self, centerX, centerY, height, width):
-        super().__init__(centerX, centerY, height, width)
+    def __init__(self, centerX, centerY, height, width, color):
+        super().__init__(centerX, centerY, height, width, color)
         self.dy = self.speed
         self.dx = self.speed
 
