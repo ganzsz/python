@@ -1,6 +1,6 @@
 from pyglet.gl import *
 from pyglet.window import *
-from gameobjectclass import RectangleObject
+from abstractobjects import RectangleObject
 
 class MiddleLine(RectangleObject):
     speed = 0.15

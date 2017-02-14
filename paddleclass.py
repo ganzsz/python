@@ -1,4 +1,4 @@
-from gameobjectclass import RectangleObject
+from abstractobjects import RectangleObject
 
 class Paddle(RectangleObject):
     speed = 0.15

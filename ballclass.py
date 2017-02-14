@@ -1,6 +1,6 @@
 #class voor bal om te importeren
 from paddleclass import Paddle
-from gameobjectclass import RectangleObject
+from abstractobjects import RectangleObject
 
 class Ball(RectangleObject):
     speed = 0.15 #TODO function for speed incremention for smoooooth criminal stuff
