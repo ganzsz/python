@@ -31,6 +31,7 @@ class Ball(RectangleObject):
         if(self.centerX + self.width/2 >= window.width):
             self.dx=-self.speed
             print('right')
+            #TODO add scoreboard
         elif(self.centerX - self.width/2 <= 0):
             self.dx=self.speed
             print('left')
