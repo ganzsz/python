@@ -3,7 +3,7 @@ from abstractobjects import GameObject
 from pyglet.gl import *
 from pyglet.window import *
 
-class textBox(GameObject):
+class TextBox(GameObject):
     text = "Hoi"
     def draw(self):
         pyglet.text.Label(str(self.text),
@@ -16,13 +16,14 @@ class textBox(GameObject):
         self.text = text
         print(text)
 
-class score(GameObject):
-    def __init__(self, centerX, centerY, height, width):
-        super().__init__(centerX, centerY, height, width)
-        self.textOne = textBox(self.centerX-100, self.centerY, self.height, self.width)
-        self.textTwo = textBox(self.centerX+100, self.centerY, self.height, self.width)
+class Score(GameObject):
+    def __init__(self, window, color):
+        super().__init__(window.width/2, window.height/2, 2, 2, color)
+        self.textOne = TextBox(window.width/2-100, window.height/2, 2, 2, color)
+        self.textTwo = TextBox(window.width/2+100, window.height/2, 2, 2, color)
         self.textOne.text = 0
         self.textTwo.text = 0
+        
     playerOne = 0
     playerTwo = 0
     def scorePlayerOne(self):

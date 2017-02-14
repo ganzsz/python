@@ -2,6 +2,8 @@
 from ballclass import Ball
 from paddleclass import Paddle
 from middlelineclass import MiddleLine
+from textboxclass import *
+from abstractobjects import RectangleObject
 
 #import sys, time, math, os, random
 from pyglet.gl import *
@@ -16,20 +18,45 @@ window.push_handlers(keyboard)
 def on_draw():
     glClearColor(0, 0.2, 0.2, 0)
     glClear(GL_COLOR_BUFFER_BIT)
-    [draw_object[1].draw() for draw_object in object_list]
-    objectCounter = len(object_list)
-    while objectCounter > 0:
-        objectCounter -= 1
-        object_list[objectCounter][1].draw()
+    if(gameStarted == False):
+        startMessage = TextBox(window.width/2, window.height/2, 2, 2, (0, 0, 0))
+        startMessage.text = "Press spacebar to start"
+        startMessage.draw()
+    else:
+        global gameStarting
+        #[draw_object[1].draw() for draw_object in object_list] cant be used to to order of drawing
+        objectCounter = len(object_list)
+        while objectCounter > 0:
+            objectCounter -= 1
+            object_list[objectCounter][1].draw()
+        while(gameStarting >= 0):
+            countDownMessage = TextBox(window.width/2, window.height/2, 2, 2, (0, 0, 0))
+            countDownMessage.text = str(gameStarting)
+            gameStarting -= 1
+            time.sleep(1)
+        if(gameStarting < 0):
+            global newTime
+            newTime = current_milli_time()
+            pyglet.clock.schedule_interval(update, 1/60.0)
+
+
+
+
+
+
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
-oldTime = 0
-newTime = current_milli_time()
+gameStarted = False
+gameStarting = 3
+
+oldTime = 0 #placeholder value
+newTime = 0 #placeholder value
 
 def update(timePassed):
     global newTime
     global oldTime
+    global gameStarted
     oldTime = newTime
     newTime = current_milli_time()
     deltaTime = newTime - oldTime
@@ -48,6 +75,7 @@ def update(timePassed):
 object_list = [("ball", Ball((window.width/2), (window.height/2), 40, 40, (0, 255, 0))),
                ("paddleR", Paddle(window.width-5, (window.height/2), 120, 10, (255, 0, 0))),
                ("paddleL", Paddle(5, (window.height/2), 120, 10, (255, 0, 0))),
+               ("counter", Score(window, (0, 0, 0))),
                ("middleLine", MiddleLine(window, (0, 0, 255)))]
 
 paddle_list = [object_list[1][1], object_list[2][1]]
@@ -59,12 +87,14 @@ up = False
 down = False
 wKey = False
 sKey = False
+
 @window.event
 def on_key_press(symbol, modifiers):
     global up
     global down
     global wKey
     global sKey
+    global gameStarted
     if (symbol == key.UP):
         up = True
     if(symbol == key.DOWN):
@@ -73,6 +103,8 @@ def on_key_press(symbol, modifiers):
         wKey = True
     if(symbol == key.S):
         sKey = True
+    if(symbol == key.SPACE):
+        gameStarted = True
 
 @window.event
 def on_key_release(symbol, modifiers):
@@ -89,5 +121,4 @@ def on_key_release(symbol, modifiers):
         global sKey
         sKey = False
 
-pyglet.clock.schedule_interval(update, 1/60.0)
 pyglet.app.run()
