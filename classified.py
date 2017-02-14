@@ -23,6 +23,8 @@ oldTime = 0
 newTime = current_milli_time
 
 def update(timePassed):
+    global newTime
+    global oldTime
     oldTime = newTime
     newTime = current_milli_time
     if(up==True):
