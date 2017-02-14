@@ -19,7 +19,12 @@ def on_draw():
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
+oldTime = 0
+newTime = current_milli_time
+
 def update(timePassed):
+    oldTime = newTime
+    newTime = current_milli_time
     if(up==True):
         paddle_list[0].moveUp(window)
     if(down==True):
@@ -73,8 +78,6 @@ def on_key_release(symbol, modifiers):
     if(symbol==key.S):
         global sKey
         sKey = False
-
-oldTime = current_milli_time
 
 pyglet.clock.schedule_interval(update, 1/60.0)
 pyglet.app.run()
