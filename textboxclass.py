@@ -22,6 +22,7 @@ class score(GameObject):
         self.textOne = textBox(self.centerX-100, self.centerY, self.height, self.width)
         self.textTwo = textBox(self.centerX+100, self.centerY, self.height, self.width)
         self.textOne.text = 0
+        self.textTwo.text = 0
     playerOne = 0
     playerTwo = 0
     def scorePlayerOne(self):
