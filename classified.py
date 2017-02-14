@@ -1,6 +1,7 @@
 #game met gebruik van classes
 from ballclass import Ball
 from paddleclass import Paddle
+from middlelineclass import MiddleLine
 
 #import sys, time, math, os, random
 from pyglet.gl import *
@@ -20,27 +21,30 @@ def on_draw():
 current_milli_time = lambda: int(round(time.time() * 1000))
 
 oldTime = 0
-newTime = current_milli_time
+newTime = current_milli_time()
 
 def update(timePassed):
     global newTime
     global oldTime
     oldTime = newTime
-    newTime = current_milli_time
+    newTime = current_milli_time()
+    deltaTime = newTime - oldTime
+    print(deltaTime)
     if(up==True):
-        paddle_list[0].moveUp(window)
+        paddle_list[0].moveUp(window, deltaTime)
     if(down==True):
-        paddle_list[0].moveDown(window)
+        paddle_list[0].moveDown(window, deltaTime)
     if(sKey==True):
-        paddle_list[1].moveDown(window)
+        paddle_list[1].moveDown(window, deltaTime)
     if(wKey==True):
-        paddle_list[1].moveUp(window)
+        paddle_list[1].moveUp(window, deltaTime)
 
-    object_list[0][1].update(window, paddle_list[0], paddle_list[1])
+    object_list[0][1].update(window, deltaTime, paddle_list[0], paddle_list[1])
 
 object_list = [("ball", Ball((window.width/2), (window.height/2), 40, 40)),
                ("paddleR", Paddle(window.width-5, (window.height/2), 120, 10)),
-               ("paddleL", Paddle(5, (window.height/2), 120, 10))]
+               ("paddleL", Paddle(5, (window.height/2), 120, 10)),
+               ("middleLine", MiddleLine(window))]
 
 paddle_list = [object_list[1][1], object_list[2][1]]
     

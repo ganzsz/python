@@ -1,4 +1,4 @@
-import abc
+mport abc
 from abstractie import BaseClass
 
 class Implementatie(BaseClass):
