@@ -28,7 +28,7 @@ class Score(GameObject):
     playerTwo = 0
     def scorePlayerOne(self):
         self.playerOne+=1
-        self.textOne=self.playerOne
+        self.textOne.text=self.playerOne
 
     def scorePlayerTwo(self):
         self.playerTwo+=1

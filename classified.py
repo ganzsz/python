@@ -62,7 +62,13 @@ def update(timePassed):
     if(wKey==True):
         paddle_list[1].moveUp(window, deltaTime)
 
-    object_list[0][1].update(window, deltaTime, paddle_list[0], paddle_list[1])
+    if(object_list[0][1].update(window, deltaTime, paddle_list[0], paddle_list[1],object_list[3][1])):
+        object_list[0][1].reset(window)
+        object_list[1][1].reset()
+        object_list[2][1].reset()
+        gameStarted = False
+        pyglet.clock.unschedule(update)
+
 
 object_list = [("ball", Ball((window.width/2), (window.height/2), 20, 20, (0, 255, 0))),
                ("paddleR", Paddle(window.width-5, (window.height/2), 100, 10, (255, 0, 0))),

@@ -12,8 +12,13 @@ class Ball(RectangleObject):
         self.dy = self.speed
         self.dx = self.speed
 
+    def reset(self, window):
+        self.speed = 0.15
+        self.centerX = window.width/2
+        self.centerY = window.width/2
 
-    def update(self, window, deltaTime, paddleRight, paddleLeft):
+    def update(self, window, deltaTime, paddleRight, paddleLeft, counter):
+        point = False
         if(self.centerX + (self.width/2) >= paddleRight.centerX - (paddleRight.width/2)):
             if((paddleRight.centerY - paddleRight.height/2 <= self.centerY + self.height/2 <= paddleRight.centerY + paddleRight.height/2)
             or (paddleRight.centerY - paddleRight.height/2 <= self.centerY - self.height/2 <= paddleRight.centerY + paddleRight.height/2)):
@@ -31,11 +36,13 @@ class Ball(RectangleObject):
         if(self.centerX + self.width/2 >= window.width):
             self.dx=-self.speed
             print('right')
-            #TODO add scoreboard
+            counter.scorePlayerOne()
+            point = True
         elif(self.centerX - self.width/2 <= 0):
             self.dx=self.speed
             print('left')
-
+            counter.scorePlayerTwo()
+            point = True
         if(self.centerY + self.height/2 >= window.height):
             self.dy=-self.speed
             print('top')
@@ -45,6 +52,7 @@ class Ball(RectangleObject):
 
         self.centerY+=self.dy * deltaTime
         self.centerX+=self.dx * deltaTime
+        return point
 
     def setDx(self, speedX):
         self.dx *= speedX
