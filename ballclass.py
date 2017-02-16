@@ -3,7 +3,7 @@ from paddleclass import Paddle
 from abstractobjects import RectangleObject
 
 class Ball(RectangleObject):
-    speed = 0.15 #TODO function for speed incremention for smoooooth criminal stuff
+    speed = 0.15
     ballIncrement = 0.025
     paddleIncrement = 0.02
 
@@ -44,3 +44,9 @@ class Ball(RectangleObject):
 
         self.centerY+=self.dy * deltaTime
         self.centerX+=self.dx * deltaTime
+
+    def setDx(self, speedX):
+        self.dx *= speedX
+
+    def setDy(self, speedY):
+        self.dy *= speedY

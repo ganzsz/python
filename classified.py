@@ -9,6 +9,7 @@ from abstractobjects import RectangleObject
 from pyglet.gl import *
 from pyglet.window import *
 import time
+import random
 
 window = pyglet.window.Window()
 keyboard = pyglet.window.key.KeyStateHandler()
@@ -29,15 +30,6 @@ def on_draw():
         while objectCounter > 0:
             objectCounter -= 1
             object_list[objectCounter][1].draw()
-        while(gameStarting >= 0):
-            countDownMessage = TextBox(window.width/2, window.height/2, 2, 2, (0, 0, 0))
-            countDownMessage.text = str(gameStarting)
-            gameStarting -= 1
-            time.sleep(1)
-        if(gameStarting < 0):
-            global newTime
-            newTime = current_milli_time()
-            pyglet.clock.schedule_interval(update, 1/60.0)
 
 
 
@@ -72,9 +64,9 @@ def update(timePassed):
 
     object_list[0][1].update(window, deltaTime, paddle_list[0], paddle_list[1])
 
-object_list = [("ball", Ball((window.width/2), (window.height/2), 40, 40, (0, 255, 0))),
-               ("paddleR", Paddle(window.width-5, (window.height/2), 120, 10, (255, 0, 0))),
-               ("paddleL", Paddle(5, (window.height/2), 120, 10, (255, 0, 0))),
+object_list = [("ball", Ball((window.width/2), (window.height/2), 20, 20, (0, 255, 0))),
+               ("paddleR", Paddle(window.width-5, (window.height/2), 100, 10, (255, 0, 0))),
+               ("paddleL", Paddle(5, (window.height/2), 100, 10, (255, 0, 0))),
                ("counter", Score(window, (0, 0, 0))),
                ("middleLine", MiddleLine(window, (0, 0, 255)))]
 
@@ -105,6 +97,14 @@ def on_key_press(symbol, modifiers):
         sKey = True
     if(symbol == key.SPACE):
         gameStarted = True
+        global newTime
+        newTime = current_milli_time()
+        pyglet.clock.schedule_interval(update, 1/60.0)
+        if(random.random() <= 0.5):
+            object_list[0][1].setDx(-1)
+        if(random.random() <= 0.5):
+            object_list[0][1].setDy(-1)
+
 
 @window.event
 def on_key_release(symbol, modifiers):
